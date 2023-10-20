@@ -10,7 +10,7 @@ import pl.pwr.structures.VertexList;
  * FullGraphFactory
  */
 public class FullGraphFactory {
-
+    // TODO: Should also return the correct solution
     public static MatrixGraph generateRandom(int vertexCount) {
         ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<ArrayList<Optional<Integer>>>();
         // Fill with empty values
