@@ -10,8 +10,21 @@ public class VertexList extends ArrayList<Integer> {
 
     }
 
+    public void randomPermutation() {
+        // TODO
+    }
+
     // Counts all possible permutations of elements in ArrayList
     public int countPermutations() {
         return 0;
+    }
+
+    public static VertexList generateRandom(int vertexCount) {
+        VertexList vertexList = new VertexList();
+        for (int i = 0; i < vertexCount; i++) {
+            vertexList.add(i);
+        }
+        vertexList.randomPermutation();
+        return vertexList;
     }
 }
