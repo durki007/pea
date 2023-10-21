@@ -1,3 +1,5 @@
 pl/pwr/structures/MatrixGraph.class
 pl/pwr/App.class
 pl/pwr/structures/VertexList.class
+pl/pwr/algorithms/TSPBruteForce.class
+pl/pwr/structures/FullGraphFactory.class
