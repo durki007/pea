@@ -3,15 +3,11 @@ package pl.pwr.structures;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import pl.pwr.structures.MatrixGraph;
-import pl.pwr.structures.VertexList;
-
 /**
  * FullGraphFactory
  */
 public class FullGraphFactory {
-    // TODO: Should also return the correct solution
-    public static MatrixGraph generateRandom(int vertexCount) {
+    public static TestCase generateRandom(int vertexCount) {
         ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<ArrayList<Optional<Integer>>>();
         // Fill with empty values
         for (int i = 0; i < vertexCount; i++) {
@@ -35,6 +31,7 @@ public class FullGraphFactory {
             matrix.get(from).set(to, Optional.of(1));
             matrix.get(to).set(from, Optional.of(1));
         }
-        return new MatrixGraph(matrix);
+        int minPathLength = vertexList.size();
+        return new TestCase(new MatrixGraph(matrix), minPathLength, vertexList);
     }
 }
