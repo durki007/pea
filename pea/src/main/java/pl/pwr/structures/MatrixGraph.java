@@ -8,7 +8,7 @@ import java.util.Optional;
  */
 public class MatrixGraph {
 
-    private ArrayList<ArrayList<Optional<Integer>>> matrix;
+    private final ArrayList<ArrayList<Optional<Integer>>> matrix;
 
     public MatrixGraph(ArrayList<ArrayList<Optional<Integer>>> matrix) {
         this.matrix = matrix;
