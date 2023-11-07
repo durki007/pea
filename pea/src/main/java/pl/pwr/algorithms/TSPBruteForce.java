@@ -7,7 +7,7 @@ import pl.pwr.structures.*;
 /**
  * TSPBruteForce
  */
-public class TSPBruteForce {
+public class TSPBruteForce implements TSPAlgorithm{
 
     private Optional<Integer> getPathLength(MatrixGraph graph, VertexList permutation) {
         // TODO: Find minimal path for given permutaiton
