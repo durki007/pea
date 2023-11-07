@@ -21,7 +21,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'pl.pwr.App'
+    mainClass = 'pl.pwr.App'
 }
 
 test {
