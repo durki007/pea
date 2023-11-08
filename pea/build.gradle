@@ -5,20 +5,25 @@
 plugins {
     id 'java'
     id 'application'
+    id "org.gradlex.extra-java-module-info" version "1.5"
     id "org.beryx.jlink" version "3.0.1"
 }
 
 
 repositories {
     mavenLocal()
+    gradlePluginPortal()
     mavenCentral()
     maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
+        url "https://plugins.gradle.org/m2/"
     }
 }
 
 dependencies {
-    testImplementation 'junit:junit:3.8.1'
+    implementation group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0'
 }
 
 application {
@@ -39,11 +44,16 @@ jlink {
     }
 }
 
-test {
-    useJUnit()
+extraJavaModuleInfo {
+    module('commons-cli-1.4.jar', 'org.apache.commons.cli', '3.2.2') {
+        exports('org.apache.commons.cli')
+    }
 }
 
 
+test {
+    useJUnit()
+}
 
 group = 'pl.pwr'
 version = '1.0-SNAPSHOT'
