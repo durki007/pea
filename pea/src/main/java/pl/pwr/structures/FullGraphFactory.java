@@ -7,7 +7,7 @@ import java.util.Optional;
  * FullGraphFactory
  */
 public class FullGraphFactory {
-    public static TestCase generateRandom(int vertexCount) {
+    public static TSPInstance generateRandom(int vertexCount) {
         ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<ArrayList<Optional<Integer>>>();
         // Fill with empty values
         for (int i = 0; i < vertexCount; i++) {
@@ -32,6 +32,6 @@ public class FullGraphFactory {
             matrix.get(to).set(from, Optional.of(1));
         }
         int minPathLength = vertexList.size();
-        return new TestCase(new MatrixGraph(matrix), minPathLength, vertexList);
+        return new TSPInstance(new MatrixGraph(matrix), minPathLength, vertexList);
     }
 }

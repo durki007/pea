@@ -1,5 +1,6 @@
 package pl.pwr.structures;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ public class MatrixGraph {
     public MatrixGraph(ArrayList<ArrayList<Optional<Integer>>> matrix) {
         this.matrix = matrix;
     }
+
 
     public static void test() {
         System.out.println("Hello World!");

@@ -16,23 +16,29 @@ public class App {
         CommandLine cmd = parser.parse(options, args);
         // Determine mode of operation
         if (cmd.hasOption("f")) {
-            // File mode
-            String filename = cmd.getOptionValue("f");
-            System.out.println("File mode: " + filename);
-            // Open file
-            try (FileInputStream fis = new FileInputStream(filename)) {
-                // Read file
-                String content = IOUtils.toString(fis, "UTF-8");
-                System.out.println(content);
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-
+            fileReadMode(cmd);
         } else {
-            // Interactive mode
-            System.out.println("Interactive mode");
+            interactiveMode();
         }
         System.out.println("Test");
         MatrixGraph.test();
+    }
+
+    private static void interactiveMode() {
+        // Interactive mode
+        System.out.println("Interactive mode");
+    }
+
+    private static void fileReadMode(CommandLine cmd) {
+        // File mode
+        String filename = cmd.getOptionValue("f");
+        System.out.println("File mode: " + filename);
+        // Open file
+        try (FileInputStream fis = new FileInputStream(filename)) {
+            // Read file
+            TSPInstance tspInstance = new TSPInstance(fis);
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 }
