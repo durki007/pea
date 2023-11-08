@@ -4,7 +4,10 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -28,14 +31,31 @@ public class TSPInstance {
     }
 
     public TSPInstance(FileInputStream fis) throws IOException {
-        String fileString = IOUtils.toString(fis, "UTF-8");
-        var graphDescription = fileString.split("( +)|((\\n\\r)+( ?))|(\r\n)|(\r)|(\n)");
-        var filtered = Arrays.stream(graphDescription).filter(s -> s != "").toArray();
-        for (var line : filtered) {
-            System.out.println(line);
+        String fileString = IOUtils.toString(fis, StandardCharsets.UTF_8);
+        var filtered = new ArrayList<String>(Arrays.asList(fileString.split("\\s+")));
+        // Create matrix
+        int vertexCount = Integer.parseInt(filtered.get(0));
+        ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<>();
+        for (int i = 1; i <= vertexCount * vertexCount; i++) {
+            int x = (i - 1) / vertexCount;
+            int y = (i - 1) % vertexCount;
+            if (x == 0) {
+                matrix.add(new ArrayList<>());
+            }
+            if (x == y) {
+                matrix.get(x).add(Optional.empty());
+            } else {
+                matrix.get(x).add(Optional.of(Integer.parseInt(filtered.get(i))));
+            }
         }
-        this.graph = null; // TODO: FIXX
-        this.minPathLength = 0;
+        this.graph = new MatrixGraph(matrix);
+        this.minPathLength = Integer.parseInt(filtered.getLast().replace("sum_min=", ""));
         this.minPath = Optional.empty();
+        // Display info
+        System.out.println("Loaded TSP instance from file");
+        System.out.println("Vertex count: " + vertexCount);
+        System.out.println("Min path length: " + this.minPathLength);
+        this.graph.display();
     }
 }
+

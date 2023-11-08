@@ -20,6 +20,20 @@ public class MatrixGraph {
         System.out.println("Hello World!");
     }
 
+    public void display() {
+        System.out.println("MatrixGraph:");
+        for (ArrayList<Optional<Integer>> row : matrix) {
+            for (Optional<Integer> cell : row) {
+                if (cell.isPresent()) {
+                    System.out.printf("%3d ", cell.get());
+                } else {
+                    System.out.print("  X ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public int getVertexCount() {
         // TOOD: this class should throw error if matrix is not a square
         return Math.max(matrix.size(), matrix.get(0).size());
