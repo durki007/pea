@@ -2,17 +2,16 @@ package pl.pwr.structures;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * MatrixGraph
  */
 public class MatrixGraph {
 
-    private final ArrayList<ArrayList<Optional<Integer>>> matrix;
+    private final ArrayList<ArrayList<Integer>> matrix;
     private final int vertexCount;
 
-    public MatrixGraph(List<ArrayList<Optional<Integer>>> matrix) throws IllegalArgumentException {
+    public MatrixGraph(List<ArrayList<Integer>> matrix) throws IllegalArgumentException {
         this.matrix = new ArrayList<>(matrix);
         this.vertexCount = matrix.size();
         if (matrix.size() != matrix.get(0).size()) {
@@ -20,7 +19,7 @@ public class MatrixGraph {
         }
     }
 
-    public Optional<Integer> getEdge(int v, int u) {
+    public Integer getEdge(int v, int u) {
         return matrix.get(v).get(u);
     }
 
@@ -30,10 +29,10 @@ public class MatrixGraph {
 
     public void display() {
         System.out.println("MatrixGraph:");
-        for (ArrayList<Optional<Integer>> row : matrix) {
-            for (Optional<Integer> cell : row) {
-                if (cell.isPresent()) {
-                    System.out.printf("%3d ", cell.get());
+        for (var row : matrix) {
+            for (var cell : row) {
+                if (cell != null) {
+                    System.out.printf("%3d ", cell);
                 } else {
                     System.out.print("  X ");
                 }

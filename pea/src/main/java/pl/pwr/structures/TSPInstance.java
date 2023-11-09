@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * TestCase
@@ -31,7 +30,7 @@ public class TSPInstance {
         var filtered = new ArrayList<>(Arrays.asList(fileString.split("\\s+")));
         // Create matrix
         int vertexCount = Integer.parseInt(filtered.get(0));
-        ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
         for (int i = 1; i <= vertexCount * vertexCount; i++) {
             int x = (i - 1) / vertexCount;
             int y = (i - 1) % vertexCount;
@@ -39,9 +38,9 @@ public class TSPInstance {
                 matrix.add(new ArrayList<>());
             }
             if (x == y) {
-                matrix.get(x).add(Optional.empty());
+                matrix.get(x).add(null);
             } else {
-                matrix.get(x).add(Optional.of(Integer.parseInt(filtered.get(i))));
+                matrix.get(x).add(Integer.parseInt(filtered.get(i)));
             }
         }
         this.graph = new MatrixGraph(matrix);

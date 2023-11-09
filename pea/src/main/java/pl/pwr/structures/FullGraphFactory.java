@@ -1,7 +1,6 @@
 package pl.pwr.structures;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 /**
  * FullGraphFactory
@@ -11,15 +10,15 @@ public class FullGraphFactory {
         throw new IllegalStateException("FullGraphFactory class");
     }
     public static TSPInstance generateRandom(int vertexCount) {
-        ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
         // Fill with empty values
         for (int i = 0; i < vertexCount; i++) {
-            ArrayList<Optional<Integer>> row = new ArrayList<>();
+            ArrayList<Integer> row = new ArrayList<>();
             for (int j = 0; j < vertexCount; j++) {
                 if (i == j) {
-                    row.add(Optional.empty());
+                    row.add(null);
                 } else {
-                    row.add(Optional.of(100));
+                    row.add(100);
                 }
             }
             matrix.add(row);
@@ -30,8 +29,8 @@ public class FullGraphFactory {
         for (int i = 0; i < vertexArray.size(); i++) {
             int from = vertexArray.get(i);
             int to = vertexArray.get((i + 1) % vertexArray.size());
-            matrix.get(from).set(to, Optional.of(1));
-            matrix.get(to).set(from, Optional.of(1));
+            matrix.get(from).set(to, 1);
+            matrix.get(to).set(from, 1);
         }
         int minPathLength = vertexArray.size();
         return new TSPInstance(new MatrixGraph(matrix), minPathLength, vertexArray);

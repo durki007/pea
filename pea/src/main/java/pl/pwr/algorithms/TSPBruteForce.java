@@ -42,7 +42,9 @@ public class TSPBruteForce implements TSPAlgorithm {
         for (int i = 0; i < path.size(); i++) {
             int from = path.get(i);
             int to = path.get((i + 1) % path.size());
-            pathLength += graph.getEdge(from, to).orElseThrow();
+            pathLength += graph.getEdge(from, to);
+            if (graph.getEdge(from, to) == null)
+                throw new NoSuchElementException("Edge from " + from + " to " + to + " does not exist");
         }
         return pathLength;
     }
