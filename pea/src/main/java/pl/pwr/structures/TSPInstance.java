@@ -11,21 +11,17 @@ import java.util.Arrays;
 /**
  * TestCase
  */
-public class TSPInstance {
-    public final MatrixGraph graph;
-    public final TSPSolution solution;
+public record TSPInstance(MatrixGraph graph, TSPSolution solution) {
 
     public TSPInstance(MatrixGraph graph, int minPathLength, VertexArray minPath) {
-        this.graph = graph;
-        this.solution = new TSPSolution(minPathLength, minPath);
+        this(graph, new TSPSolution(minPathLength, minPath));
     }
 
     public TSPInstance(MatrixGraph graph, int minPathLength) {
-        this.graph = graph;
-        this.solution = new TSPSolution(minPathLength);
+        this(graph, new TSPSolution(minPathLength));
     }
 
-    public TSPInstance(FileInputStream fis) throws IOException {
+    public static TSPInstance createFromFile(FileInputStream fis) throws IOException {
         String fileString = IOUtils.toString(fis, StandardCharsets.UTF_8);
         var filtered = new ArrayList<>(Arrays.asList(fileString.split("\\s+")));
         // Create matrix
@@ -43,13 +39,14 @@ public class TSPInstance {
                 matrix.get(x).add(Integer.parseInt(filtered.get(i)));
             }
         }
-        this.graph = new MatrixGraph(matrix);
-        this.solution = new TSPSolution(Integer.parseInt(filtered.getLast().replace("sum_min=", "")));
+        var graph = new MatrixGraph(matrix);
+        var solution = new TSPSolution(Integer.parseInt(filtered.getLast().replace("sum_min=", "")));
         // Display info
         System.out.println("Loaded TSP instance from file");
         System.out.println("Vertex count: " + vertexCount);
-        System.out.println("Min path length: " + this.solution.minPathLength);
-        this.graph.display();
+        System.out.println("Min path length: " + solution.minPathLength);
+        graph.display();
+        return new TSPInstance(graph, solution);
     }
 
     public TSPSolution getSolution() {

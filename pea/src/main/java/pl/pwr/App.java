@@ -34,7 +34,7 @@ public class App {
         // Open file
         try (FileInputStream fis = new FileInputStream(filename)) {
             // Read file
-            TSPInstance tspInstance = new TSPInstance(fis);
+            TSPInstance tspInstance = TSPInstance.createFromFile(fis);
             // Solve
             TSPSolution tspSolution = new TSPBruteForce(tspInstance).solve();
             // Display solution
