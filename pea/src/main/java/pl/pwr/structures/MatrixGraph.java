@@ -6,14 +6,10 @@ import java.util.List;
 /**
  * MatrixGraph
  */
-public class MatrixGraph {
-
-    private final ArrayList<ArrayList<Integer>> matrix;
-    private final int vertexCount;
+public record MatrixGraph(ArrayList<ArrayList<Integer>> matrix, int vertexCount) {
 
     public MatrixGraph(List<ArrayList<Integer>> matrix) throws IllegalArgumentException {
-        this.matrix = new ArrayList<>(matrix);
-        this.vertexCount = matrix.size();
+        this(new ArrayList<>(matrix), matrix.size());
         if (matrix.size() != matrix.get(0).size()) {
             throw new IllegalArgumentException("MatrixGraph must be a square matrix");
         }
