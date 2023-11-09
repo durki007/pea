@@ -7,15 +7,14 @@ import pl.pwr.structures.*;
 /**
  * TSPBruteForce
  */
-public class TSPBruteForce implements TSPAlgorithm{
+public class TSPBruteForce implements TSPAlgorithm {
 
-    private Optional<Integer> getPathLength(MatrixGraph graph, VertexList permutation) {
-        // TODO: Find minimal path for given permutaiton
-        return Optional.of(0);
+    private final TSPInstance instance;
+
+    public TSPBruteForce(TSPInstance instance) {
+        this.instance = instance;
     }
-
-    public static VertexList solve(MatrixGraph graph) {
-
-        return new VertexList();
+    public TSPSolution solve() {
+        return new TSPSolution(0);
     }
 }

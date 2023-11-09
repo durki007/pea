@@ -22,16 +22,16 @@ public class FullGraphFactory {
             matrix.add(row);
         }
         // Generate random vertex permutation
-        VertexList vertexList = VertexList.generateRandom(vertexCount);
+        VertexArray vertexArray = VertexArray.generateRandom(vertexCount);
         // Generate path based on random permutation
-        for (int i = 0; i < vertexList.size(); i++) {
-            int from = vertexList.get(i);
-            int to = vertexList.get((i + 1) % vertexList.size());
+        for (int i = 0; i < vertexArray.size(); i++) {
+            int from = vertexArray.get(i);
+            int to = vertexArray.get((i + 1) % vertexArray.size());
             // TODO: check if correct
             matrix.get(from).set(to, Optional.of(1));
             matrix.get(to).set(from, Optional.of(1));
         }
-        int minPathLength = vertexList.size();
-        return new TSPInstance(new MatrixGraph(matrix), minPathLength, vertexList);
+        int minPathLength = vertexArray.size();
+        return new TSPInstance(new MatrixGraph(matrix), minPathLength, vertexArray);
     }
 }

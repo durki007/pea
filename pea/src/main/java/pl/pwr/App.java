@@ -1,7 +1,6 @@
 package pl.pwr;
 
 import org.apache.commons.cli.*;
-import org.apache.commons.io.*;
 import pl.pwr.structures.*;
 
 import java.io.FileInputStream;
@@ -20,8 +19,6 @@ public class App {
         } else {
             interactiveMode();
         }
-        System.out.println("Test");
-        MatrixGraph.test();
     }
 
     private static void interactiveMode() {
