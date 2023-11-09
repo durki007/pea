@@ -7,11 +7,14 @@ import java.util.Optional;
  * FullGraphFactory
  */
 public class FullGraphFactory {
+    private FullGraphFactory() throws IllegalStateException {
+        throw new IllegalStateException("FullGraphFactory class");
+    }
     public static TSPInstance generateRandom(int vertexCount) {
-        ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<ArrayList<Optional<Integer>>>();
+        ArrayList<ArrayList<Optional<Integer>>> matrix = new ArrayList<>();
         // Fill with empty values
         for (int i = 0; i < vertexCount; i++) {
-            ArrayList<Optional<Integer>> row = new ArrayList<Optional<Integer>>();
+            ArrayList<Optional<Integer>> row = new ArrayList<>();
             for (int j = 0; j < vertexCount; j++) {
                 if (i == j) {
                     row.add(Optional.empty());
@@ -27,7 +30,6 @@ public class FullGraphFactory {
         for (int i = 0; i < vertexArray.size(); i++) {
             int from = vertexArray.get(i);
             int to = vertexArray.get((i + 1) % vertexArray.size());
-            // TODO: check if correct
             matrix.get(from).set(to, Optional.of(1));
             matrix.get(to).set(from, Optional.of(1));
         }

@@ -15,4 +15,15 @@ public class TSPSolution {
         this.minPathLength = minPathLength;
         this.minPath = Optional.empty();
     }
+
+    public void display() {
+        System.out.println("TSPSolution:");
+        System.out.println("minPathLength: " + minPathLength);
+        if (minPath.isPresent()) {
+            System.out.print("minPath: ");
+            minPath.get().display();
+        } else {
+            System.out.println("minPath: null");
+        }
+    }
 }

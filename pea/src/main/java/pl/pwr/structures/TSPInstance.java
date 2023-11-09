@@ -52,5 +52,13 @@ public class TSPInstance {
         System.out.println("Min path length: " + this.solution.minPathLength);
         this.graph.display();
     }
+
+    public TSPSolution getSolution() {
+        return solution;
+    }
+
+    public MatrixGraph getGraph() {
+        return graph;
+    }
 }
 

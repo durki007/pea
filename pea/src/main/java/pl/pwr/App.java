@@ -1,6 +1,7 @@
 package pl.pwr;
 
 import org.apache.commons.cli.*;
+import pl.pwr.algorithms.TSPBruteForce;
 import pl.pwr.structures.*;
 
 import java.io.FileInputStream;
@@ -34,6 +35,10 @@ public class App {
         try (FileInputStream fis = new FileInputStream(filename)) {
             // Read file
             TSPInstance tspInstance = new TSPInstance(fis);
+            // Solve
+            TSPSolution tspSolution = new TSPBruteForce(tspInstance).solve();
+            // Display solution
+            tspSolution.display();
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }

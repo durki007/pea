@@ -1,6 +1,7 @@
 package pl.pwr.structures;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,16 +12,16 @@ public class MatrixGraph {
     private final ArrayList<ArrayList<Optional<Integer>>> matrix;
     private final int vertexCount;
 
-    public MatrixGraph(ArrayList<ArrayList<Optional<Integer>>> matrix) throws IllegalArgumentException {
-        this.matrix = matrix;
+    public MatrixGraph(List<ArrayList<Optional<Integer>>> matrix) throws IllegalArgumentException {
+        this.matrix = new ArrayList<>(matrix);
         this.vertexCount = matrix.size();
         if (matrix.size() != matrix.get(0).size()) {
             throw new IllegalArgumentException("MatrixGraph must be a square matrix");
         }
     }
 
-    public Optional<Integer> getEdge(int x, int y) {
-        return matrix.get(x).get(y);
+    public Optional<Integer> getEdge(int v, int u) {
+        return matrix.get(v).get(u);
     }
 
     public int getVertexCount() {
