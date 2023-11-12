@@ -30,7 +30,7 @@ public class App {
     private static void interactiveMode() {
         // Interactive mode
         System.out.println("Interactive mode");
-        MeasureSuite.run(TSPAlgorithmType.BRUTE_FORCE, 11, 10);
+        MeasureSuite.run(TSPAlgorithmType.BRUTE_FORCE, 8, 100);
     }
 
     private static void generateMode(CommandLine cmd) {
