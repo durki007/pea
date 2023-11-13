@@ -13,7 +13,7 @@ public enum TSPAlgorithmType {
     public static TSPAlgorithm getAlgorithm(TSPAlgorithmType algorithmType, TSPInstance instance) {
         return switch (algorithmType) {
             case BRUTE_FORCE -> new TSPBruteForce(instance);
-            case DYNAMIC_PROGRAMMING -> new TSPDynamic(instance);
+            case DYNAMIC_PROGRAMMING -> new TSPDynamicRecursive(instance);
             default -> throw new IllegalArgumentException("Unknown algorithm type");
         };
     }

@@ -19,6 +19,12 @@ public class TSPDynamic implements TSPAlgorithm {
         var dp = new long[n][1 << n];
         // Initialize dp array - vertex 0 is the starting point
         for (int i = 0; i < n; i++) {
+            for (int j = 0; j < (1 << n); j++) {
+                dp[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
             dp[i][0] = graph.getEdgeSafe(0, i);
         }
 
@@ -29,7 +35,7 @@ public class TSPDynamic implements TSPAlgorithm {
                 dp[i][mask] = Integer.MAX_VALUE;
                 for (int j = 0; j < n; j++) {
                     if ((mask ^ (1 << j)) == 0) continue;
-                    if (i == j) continue; // Skip if i == j (same vertex)
+//                    if (i == j) continue; // Skip if i == j (same vertex)
                     dp[i][mask] = Math.min(dp[i][mask], dp[j][mask ^ (1 << i)] + graph.getEdgeSafe(j, i));
                 }
             }
@@ -42,7 +48,7 @@ public class TSPDynamic implements TSPAlgorithm {
             minPathLength = Math.min(minPathLength, dp[i][(1 << n) - 1] + graph.getEdgeSafe(i, 0));
         }
 
-        if(minPathLength >= Integer.MAX_VALUE) throw new IllegalArgumentException("Cannot cast result to int");
+        if (minPathLength >= Integer.MAX_VALUE) throw new IllegalArgumentException("Cannot cast result to int");
 
         return new TSPSolution((int) minPathLength);
     }

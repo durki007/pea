@@ -2,7 +2,6 @@ package pl.pwr;
 
 import org.apache.commons.cli.*;
 import pl.pwr.algorithms.TSPAlgorithmType;
-import pl.pwr.algorithms.TSPBruteForce;
 import pl.pwr.measure.MeasureSuite;
 import pl.pwr.structures.*;
 
