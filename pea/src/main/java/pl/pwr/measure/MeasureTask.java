@@ -23,9 +23,11 @@ public class MeasureTask implements Callable<Long> {
         ThreadMXBean bean = ManagementFactory.getThreadMXBean();
         var instance = FullGraphFactory.generateRandom(vertexCount);
         var algorithm = TSPAlgorithmType.getAlgorithm(algorithmType, instance);
-        long startTime = getThreadTime(bean);
+//        long startTime = getThreadTime(bean);
+        long startTime = System.nanoTime();
         algorithm.solve();
-        long endTime = getThreadTime(bean);
+        long endTime = System.nanoTime();
+//        long endTime = getThreadTime(bean);
         return endTime - startTime;
     }
 

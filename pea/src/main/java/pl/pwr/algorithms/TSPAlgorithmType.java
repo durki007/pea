@@ -11,22 +11,11 @@ public enum TSPAlgorithmType {
     GENETIC;
 
     public static TSPAlgorithm getAlgorithm(TSPAlgorithmType algorithmType, TSPInstance instance) {
-        switch (algorithmType) {
-            case BRUTE_FORCE:
-                return new TSPBruteForce(instance);
-//            case BRANCH_AND_BOUND:
-//                return new TSPBranchAndBound(instance);
-//            case DYNAMIC_PROGRAMMING:
-//                return new TSPDynamicProgramming(instance);
-//            case GREEDY:
-//                return new TSPGreedy(instance);
-//            case SIMULATED_ANNEALING:
-//                return new TSPSimulatedAnnealing(instance);
-//            case GENETIC:
-//                return new TSPGenetic(instance);
-            default:
-                throw new IllegalArgumentException("Unknown algorithm type");
-        }
+        return switch (algorithmType) {
+            case BRUTE_FORCE -> new TSPBruteForce(instance);
+            case DYNAMIC_PROGRAMMING -> new TSPDynamic(instance);
+            default -> throw new IllegalArgumentException("Unknown algorithm type");
+        };
     }
 
     public static TSPAlgorithmType parse(String algorithmName) {

@@ -19,6 +19,15 @@ public record MatrixGraph(ArrayList<ArrayList<Integer>> matrix, int vertexCount)
         return matrix.get(v).get(u);
     }
 
+    // Safe version of getEdge - returns 0 if edge does not exist
+    public Long getEdgeSafe(int v, int u) {
+        var edge = matrix.get(v).get(u);
+        if (edge == null) {
+            return (long) 0;
+        }
+        return (long) matrix.get(v).get(u);
+    }
+
     public int getVertexCount() {
         return vertexCount;
     }
