@@ -2,6 +2,7 @@ package pl.pwr.structures;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * MatrixGraph
@@ -44,6 +45,17 @@ public record MatrixGraph(ArrayList<ArrayList<Integer>> matrix, int vertexCount)
             }
             System.out.println();
         }
+    }
+    public long calculatePathLength(VertexArray path) {
+        long pathLength = 0;
+        for (int i = 0; i < path.size(); i++) {
+            int from = path.get(i);
+            int to = path.get((i + 1) % path.size());
+            pathLength += getEdge(from, to);
+            if (getEdge(from, to) == null)
+                throw new NoSuchElementException("Edge from " + from + " to " + to + " does not exist");
+        }
+        return pathLength;
     }
 
 }

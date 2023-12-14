@@ -21,13 +21,13 @@ public class VertexArray {
         permutationIndex = BigInteger.ZERO;
     }
 
-    public VertexArray(int[] array){
+    public VertexArray(int[] array) {
         this.array = array;
         permutationCount = getPermutationCount(array.length);
         permutationIndex = BigInteger.ZERO;
     }
 
-    public int get(int index){
+    public int get(int index) {
         return array[index];
     }
 
@@ -77,6 +77,25 @@ public class VertexArray {
             array[index] = array[i];
             array[i] = a;
         }
+    }
+
+    // 2-opt swap
+    public void twoOptSwap(int i, int j) {
+        int[] newArray = array.clone();
+        if (i >= 0) System.arraycopy(array, 0, newArray, 0, i);
+        int d = 0;
+        for (int k = i; k <= j; k++) {
+            newArray[k] = array[j - d];
+            d++;
+        }
+        if (array.length - (j + 1) >= 0) System.arraycopy(array, j + 1, newArray, j + 1, array.length - (j + 1));
+        System.arraycopy(newArray, 0, array, 0, array.length);
+    }
+
+    public void swap(int i, int j) {
+        int a = array[i];
+        array[i] = array[j];
+        array[j] = a;
     }
 
     public BigInteger getPermutationCount() {
