@@ -7,6 +7,7 @@ public enum TSPAlgorithmType {
     BRANCH_AND_BOUND,
     DYNAMIC_PROGRAMMING,
     GREEDY,
+    LOCAL_SEARCH,
     SIMULATED_ANNEALING,
     GENETIC;
 
@@ -14,6 +15,7 @@ public enum TSPAlgorithmType {
         return switch (algorithmType) {
             case BRUTE_FORCE -> new TSPBruteForce(instance);
             case DYNAMIC_PROGRAMMING -> new TSPDynamicRecursive(instance);
+            case LOCAL_SEARCH -> new TSPLocalSearch(instance);
             default -> throw new IllegalArgumentException("Unknown algorithm type");
         };
     }
@@ -26,6 +28,7 @@ public enum TSPAlgorithmType {
             case "gr" -> GREEDY;
             case "sa" -> SIMULATED_ANNEALING;
             case "ge" -> GENETIC;
+            case "ls" -> LOCAL_SEARCH;
             default -> throw new IllegalArgumentException("Unknown algorithm name: " + algorithmName);
         };
     }
