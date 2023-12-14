@@ -3,6 +3,11 @@ package pl.pwr.algorithms;
 import pl.pwr.structures.*;
 import pl.pwr.structures.TSPSolution;
 
+<<<<<<< HEAD
+=======
+import java.util.NoSuchElementException;
+
+>>>>>>> origin/main
 // Simple local search algorithm for TSP
 // Using 2-opt algorithm
 public class TSPLocalSearch implements TSPAlgorithm {
