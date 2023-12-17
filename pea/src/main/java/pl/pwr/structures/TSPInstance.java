@@ -72,7 +72,7 @@ public record TSPInstance(MatrixGraph graph, TSPSolution solution) {
             if (x == y) {
                 matrix.get(x).add(null);
             } else {
-                matrix.get(x).add(Integer.parseInt(filtered.get(i + start)));
+                matrix.get(x).add(Integer.parseInt(filtered.get(i + start - 1)));
             }
         }
         var graph = new MatrixGraph(matrix);
