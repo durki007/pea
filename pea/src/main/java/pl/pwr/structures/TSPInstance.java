@@ -21,7 +21,14 @@ public record TSPInstance(MatrixGraph graph, TSPSolution solution) {
         this(graph, new TSPSolution(minPathLength));
     }
 
-    public static TSPInstance createFromFile(FileInputStream fis) throws IOException {
+    public static TSPInstance createFromFile(FileInputStream fis, TspFileFormat fileFormat) throws IOException {
+        return switch (fileFormat) {
+            case FULL_GRAPH -> createFromMatrixFile(fis);
+            case TSPLIB -> createFromTSPLIBFile(fis);
+        };
+    }
+
+    public static TSPInstance createFromMatrixFile(FileInputStream fis) throws IOException {
         String fileString = IOUtils.toString(fis, StandardCharsets.UTF_8);
         var filtered = new ArrayList<>(Arrays.asList(fileString.split("\\s+")));
         // Create matrix
@@ -47,6 +54,40 @@ public record TSPInstance(MatrixGraph graph, TSPSolution solution) {
         System.out.println("Min path length: " + solution.minPathLength);
         graph.display();
         return new TSPInstance(graph, solution);
+    }
+
+    public static TSPInstance createFromTSPLIBFile(FileInputStream fis) throws IOException {
+        String fileString = IOUtils.toString(fis, StandardCharsets.UTF_8);
+        var filtered = new ArrayList<>(Arrays.asList(fileString.split("\\s+")));
+        // Create matrix
+        int vertexCount = Integer.parseInt(filtered.get(findString(filtered, "DIMENSION:") + 1));
+        ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
+        int start = findString(filtered, "EDGE_WEIGHT_SECTION") + 1;
+        for (int i = 1; i <= vertexCount * vertexCount; i++) {
+            int x = (i - 1) / vertexCount;
+            int y = (i - 1) % vertexCount;
+            if (x == 0) {
+                matrix.add(new ArrayList<>());
+            }
+            if (x == y) {
+                matrix.get(x).add(null);
+            } else {
+                matrix.get(x).add(Integer.parseInt(filtered.get(i + start)));
+            }
+        }
+        var graph = new MatrixGraph(matrix);
+        // Display info
+        System.out.println("Loaded TSP instance from file");
+        System.out.println("Vertex count: " + vertexCount);
+        graph.display();
+        return new TSPInstance(graph, null);
+    }
+
+    private static int findString(ArrayList<String> list, String str) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals(str)) return i;
+        }
+        return -1;
     }
 
     public TSPSolution getSolution() {

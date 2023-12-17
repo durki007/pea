@@ -12,6 +12,7 @@ public class App {
         // Command line options
         Options options = new Options();
         options.addOption(new Option("f", "file", true, "Input file"));
+        options.addOption(new Option("r", "format", true, "Input file format"));
         options.addOption(new Option("g", "generate", true, "Generate full graph with given vertex count"));
         options.addOption(new Option("a", "algorithm", true, "Algorithm to use"));
         // Parse command line options
@@ -31,7 +32,7 @@ public class App {
         // Interactive mode
         System.out.println("Full measurement mode");
         var resultPath = "measurements/";
-        MeasureSuite.runAll(TSPAlgorithmType.DYNAMIC_PROGRAMMING, 15, 100,resultPath);
+        MeasureSuite.runAll(TSPAlgorithmType.DYNAMIC_PROGRAMMING, 15, 100, resultPath);
         MeasureSuite.runAll(TSPAlgorithmType.BRUTE_FORCE, 10, 100, resultPath);
     }
 
@@ -55,13 +56,14 @@ public class App {
     private static void fileReadMode(CommandLine cmd) {
         // File mode
         String filename = cmd.getOptionValue("f");
+        String format = cmd.getOptionValue("r");
         String algorithm = cmd.getOptionValue("a");
         System.out.println("File mode: " + filename);
         System.out.printf("Algorithm: %s%n", TSPAlgorithmType.parse(algorithm));
         // Open file
         try (FileInputStream fis = new FileInputStream(filename)) {
             // Read file
-            TSPInstance tspInstance = TSPInstance.createFromFile(fis);
+            TSPInstance tspInstance = TSPInstance.createFromFile(fis, TspFileFormat.parse(format));
             // Solve
             TSPSolution tspSolution = TSPAlgorithmType.getAlgorithm(TSPAlgorithmType.parse(algorithm), tspInstance).solve();
             // Display solution

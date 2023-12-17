@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="pea [run] - ts - matrix_6x6" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="pea [run] - ts - ftv170.atsp" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -11,7 +11,7 @@
       <option name="taskNames">
         <list>
           <option value="run" />
-          <option value="--args=&quot;-f sample-tsp/matrix_6x6.astp -a ts&quot;" />
+          <option value="--args=&quot;-f sample-tsp/ftv170.atsp -a ts -r tsplib&quot;" />
         </list>
       </option>
       <option name="vmOptions" />
