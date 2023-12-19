@@ -29,50 +29,45 @@ public class TSPTabuSearch implements TSPAlgorithm {
         var tabuSize = vertexCount / 2;
         var tabuTenure = vertexCount / 2;
         // Tabu search loop
-        boolean improved = true;
-        while (improved) {
-            improved = false;
-            for (int i = 0; i < vertexCount - 1; i++) {
-                for (int j = i + 1; j < vertexCount; j++) {
-                    // Check if move is not tabu
-                    if (!tabuList.contains(i, j)) {
-                        // Swap two edges
-                        currentPath.twoOptSwap(i, j);
-                        // Calculate new path length
-                        currentCost = graph.calculatePathLength(currentPath);
-                        // Check if new path is better
-                        if (currentCost < bestCost) {
-                            // Update best path
-                            bestPath = currentPath.getArray().clone();
-                            bestCost = currentCost;
-                            improved = true;
-                        }
-                        // Swap back
-                        currentPath.twoOptSwap(i, j);
+        var iteration = 0;
+        while (iteration < 10000) {
+            var bestMove = new int[]{0, 0};
+            var bestMoveCost = Long.MAX_VALUE;
+            // For each pair of edges
+            for (var i = 0; i < vertexCount - 1; i++) {
+                for (var j = i + 1; j < vertexCount; j++) {
+                    // Swap edges
+                    var newPath = new VertexArray(currentPath.getArray().clone());
+                    newPath.twoOptSwap(i, j);
+                    var newCost = graph.calculatePathLength(newPath);
+                    // Check if move is allowed
+                    if (!tabuList.contains(i, j) && newCost < bestMoveCost) {
+                        bestMoveCost = newCost;
+                        bestMove = new int[]{i, j};
                     }
                 }
             }
-            // Update current path
-            currentPath = new VertexArray(bestPath);
-
+            // Update solution
+//            currentPath = currentPath.swap(bestMove[0], bestMove[1]);
+            currentPath.twoOptSwap(bestMove[0], bestMove[1]);
+            currentCost = bestMoveCost;
+            // Update best solution
+            if (currentCost < bestCost) {
+                bestPath = currentPath.getArray().clone();
+                bestCost = currentCost;
+            }
             // Update tabu list
-            for (int i = 0; i < vertexCount - 1; i++) {
-                for (int j = i + 1; j < vertexCount; j++) {
-                    if (tabuList.contains(i, j)) {
-                        tabuList.add(i, j);
-                    }
-                }
-            }
+            // Add reversed move to tabu list
+            tabuList.add(bestMove[1], bestMove[0]);
             // Decrease tabu tenure
             tabuTenure--;
-            // Check tabu tenure
             if (tabuTenure == 0) {
-                tabuTenure = vertexCount / 2;
-                tabuSize--;
-                if (tabuSize == 0) {
-                    tabuSize = vertexCount / 2;
-                }
+                // If tabu tenure is 0, clear tabu list
+                tabuList = new TabuList(tabuSize);
+                // Reset tabu tenure
+                tabuTenure = tabuSize;
             }
+            iteration++;
         }
 
         return new TSPSolution((int) bestCost, new VertexArray(bestPath));
